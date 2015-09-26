@@ -13,7 +13,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "AdmissionNews.db";
     private static final int DATABASE_VERSION = 1;
     private static final String CREATE_DATA_TABLE = "create table dataTABLE " +
-            "_id integer primary key, " +
+            "(_id integer primary key, " +
             "DataSubject text, " +
             "DataIMG text, " +
             "DataDateStart text, " +
@@ -23,6 +23,10 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
             "DataLink text, " +
             "DataInstitute text);";
 
+    private static final String CREATE_USAGE_TABLE = "create table usageTABLE " +
+            "(_id integer primary key, " +
+            "Usage_seq integer, " +
+            "Usage_DataID integer);";
 
 
 
@@ -34,6 +38,7 @@ public class MySQLiteOpenHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_DATA_TABLE);
+        sqLiteDatabase.execSQL(CREATE_USAGE_TABLE);
 
     }
 

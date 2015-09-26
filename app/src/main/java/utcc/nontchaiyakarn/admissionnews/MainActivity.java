@@ -16,11 +16,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        connectedSQLite();
 
-        testAddValue();
+        connectedSQLite();  // Connected to SQLite
+
+        //testAddValue(); // Test Add Value
+
+        syncJSONtoSQLite();
+
 
     }   // on Create
+
+    private void syncJSONtoSQLite() {
+
+        
+
+    }   // Sync data FROM JSON TO SQLite
 
     private void testAddValue() {
 

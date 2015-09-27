@@ -5,6 +5,7 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ListView;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private DataTABLE objDataTABLE;
     private UsageTABLE objUsageTABLE;
 
-
+    private ListView DataListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +36,37 @@ public class MainActivity extends AppCompatActivity {
 
         //testAddValue(); // Test Add Value
 
-        syncJSONtoSQLite();
+        deleteAllData();    // Clear ข้อมูลใน Table ทั้งหมด
 
+        syncJSONtoSQLite(); // Sync ข้อมมูลมาที่ SQLite
+
+        createListView();
 
     }   // on Create
+
+    private void createListView() {
+
+        DataTABLE objDataTABLE = new DataTABLE(this);
+        String[] strSubject = objDataTABLE.readAllData(1);
+        String[] strDate = objDataTABLE.readAllData(2);
+        String[] strType = objDataTABLE.readAllData(3);
+        String[] strIMG = objDataTABLE.readAllData(4);
+
+        MyAdapter objMyAdapter = new MyAdapter(MainActivity.this, strSubject, strType, strDate);
+        DataListView.setAdapter(objMyAdapter);
+
+
+
+    }   // Create List View
+
+    private void deleteAllData() {
+
+        SQLiteDatabase objSqLiteDatabase = openOrCreateDatabase("AdmissionNews.db", MODE_APPEND, null);
+
+        objSqLiteDatabase.delete("usageTABLE", null, null);
+        objSqLiteDatabase.delete("dataTABLE", null, null);
+
+    }   // Delete All Data From SQLite
 
     private void syncJSONtoSQLite() {
 

@@ -2,6 +2,7 @@ package utcc.nontchaiyakarn.admissionnews;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
@@ -31,6 +32,45 @@ public class DataTABLE {
         writeSqLiteDatabase = objMySQLiteOpenHelper.getWritableDatabase();
 
     }   // Constructor
+
+    public String[] readAllData(int intColumn) {
+
+        String[] strReadALL = null;
+        Cursor objCursor = readSqLiteDatabase.query(DATA_TABLE,
+                new String[]{COLUMN_ID, COLUMN_SUBJECT, COLUMN_IMG, COLUMN_DATE_START, COLUMN_DATE_END, COLUMN_EVENTTYPE, COLUMN_DESCRIPTION, COLUMN_LINK, COLUMN_INSTITUTE},
+                null, null, null, null, null);
+
+        if (objCursor != null) {
+            objCursor.moveToFirst();
+            strReadALL = new String[objCursor.getCount()];
+            for (int i = 0; i <= objCursor.getCount(); i++) {
+                switch (intColumn) {
+
+                    case 1:
+                        strReadALL[i] = objCursor.getString(objCursor.getColumnIndex(COLUMN_SUBJECT));
+                        break;
+
+                    case 2:
+                        strReadALL[i] = objCursor.getString(objCursor.getColumnIndex(COLUMN_DATE_START));
+                        break;
+
+                    case 3:
+                        strReadALL[i] = objCursor.getString(objCursor.getColumnIndex(COLUMN_EVENTTYPE));
+                        break;
+
+
+                    default:
+                        break;
+                }   // Switch Case
+
+                objCursor.moveToNext();
+
+            }   // Loop For
+
+        }
+
+        return strReadALL;
+    }
 
 
     public long addNewData(String strSubject, String strIMG, String strDateStart, String strDateEnd, String strEvent, String strDescription, String strLink, String strInstitute) {

@@ -10,9 +10,9 @@ import android.database.sqlite.SQLiteDatabase;
 public class UsageTABLE {
 
     private MySQLiteOpenHelper objMySQLiteOpenHelper;
-    private SQLiteDatabase writeSqLiteDatabase;
+    private SQLiteDatabase writeSqLiteDatabase, readSQLiteDatabase;
 
-    public static final String USAGE_TABLE = "UsageTABLE";
+    public static final String USAGE_TABLE = "usageTABLE";
     public static final String COLUMN_ID_USAGE = "_id";
     public static final String COLUMN_SEQ = "Usage_seq";
     public static final String COLUMN_DATAID = "Usage_DataID";
@@ -22,6 +22,7 @@ public class UsageTABLE {
 
         objMySQLiteOpenHelper = new MySQLiteOpenHelper(context);
         writeSqLiteDatabase = objMySQLiteOpenHelper.getWritableDatabase();
+        readSQLiteDatabase = objMySQLiteOpenHelper.getReadableDatabase();
 
     }   // Constructor
 
